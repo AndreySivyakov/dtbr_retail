@@ -1,0 +1,20 @@
+# The main pipeline for retail_etl
+
+resources:
+  pipelines:
+    retail_etl:
+      name: retail_etl
+      catalog: ${var.catalog}
+      schema: ${var.bronze_schema}
+      serverless: true
+      root_path: "../src/transformations"
+
+      libraries:
+        - glob:
+            include: ../src/transformations/**
+      configuration:
+        retail.catalog: ${var.catalog}
+        retail.bronze_schema: ${var.bronze_schema}
+        retail.silver_schema: ${var.silver_schema}
+        retail.gold_schema: ${var.gold_schema}
+        retail.raw_data_root_path: ${var.raw_data_root_path}
